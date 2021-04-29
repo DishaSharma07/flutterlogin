@@ -370,7 +370,7 @@ class _FlutterLoginState extends State<FlutterLogin>
             color: Colors.green,
             child: Text('OPTIONS', style: textStyle),
             onPressed: () {
-              timeDilation = 1.0;
+              timeDilation = 1.1;
 
               showModalBottomSheet(
                 context: context,
