@@ -19,7 +19,7 @@ void main() {
     binding.window.clearPhysicalSizeTestValue();
   }
 
-  testWidgets('Default email validator throws error if not match email regex',
+  testWidgets('Default phone validator throws error if not match phone regex',
       (WidgetTester tester) async {
     await tester.pumpWidget(defaultFlutterLogin());
 
@@ -174,8 +174,7 @@ void main() {
           onSignup: (data) => null,
           onLogin: (data) => null,
           onRecoverPassword: (data) => null,
-          emailValidator: (value) =>
-              value!.endsWith('.com') ? null : 'Invalid!',
+          phoneValidator: (value) => value!.length != 10 ? null : 'Invalid!',
         ));
     await tester.pumpWidget(loginBuilder());
     await tester.pumpAndSettle(loadingAnimationDuration);
@@ -237,7 +236,7 @@ void main() {
           onLogin: (data) => null,
           onRecoverPassword: (data) =>
               users.contains(data) ? null : Future.value('User not exists'),
-          emailValidator: (value) => null,
+          phoneValidator: (value) => null,
         ));
     await tester.pumpWidget(loginBuilder());
     await tester.pumpAndSettle(loadingAnimationDuration);
@@ -475,7 +474,7 @@ void main() {
           onSignup: (data) => null,
           onLogin: mockCallback.onLogin,
           onRecoverPassword: (data) => null,
-          emailValidator: mockCallback.emailValidator,
+          phoneValidator: mockCallback.phoneValidator,
           passwordValidator: mockCallback.passwordValidator,
           onSubmitAnimationCompleted: mockCallback.onSubmitAnimationCompleted,
         ));
@@ -496,7 +495,7 @@ void main() {
     await tester.pumpAndSettle();
 
     verifyInOrder([
-      mockCallback.emailValidator('invalid-name'),
+      mockCallback.phoneValidator('invalid-number!'),
       mockCallback.passwordValidator(user.password),
     ]);
     verifyNever(mockCallback.onLogin(any));
@@ -506,7 +505,7 @@ void main() {
 
     // fail at onLogin
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), invalidUser.name);
+    await tester.enterText(findNameTextField(), invalidUser.phoneNumber);
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), invalidUser.password);
     await tester.pumpAndSettle();
@@ -514,7 +513,7 @@ void main() {
     await tester.pumpAndSettle();
 
     verifyInOrder([
-      mockCallback.emailValidator(invalidUser.name),
+      mockCallback.phoneValidator(invalidUser.phoneNumber),
       mockCallback.passwordValidator(invalidUser.password),
       mockCallback.onLogin(any),
     ]);
@@ -524,7 +523,7 @@ void main() {
 
     // pass
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), user.name);
+    await tester.enterText(findNameTextField(), user.phoneNumber);
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), user.password);
     await tester.pumpAndSettle();
@@ -532,7 +531,7 @@ void main() {
     await tester.pumpAndSettle();
 
     verifyInOrder([
-      mockCallback.emailValidator(user.name),
+      mockCallback.phoneValidator(user.phoneNumber),
       mockCallback.passwordValidator(user.password),
       mockCallback.onLogin(any),
       mockCallback.onSubmitAnimationCompleted(),
@@ -548,7 +547,7 @@ void main() {
           onLogin: (data) => null,
           onSignup: mockCallback.onSignup,
           onRecoverPassword: (data) => null,
-          emailValidator: mockCallback.emailValidator,
+          phoneValidator: mockCallback.phoneValidator,
           passwordValidator: mockCallback.passwordValidator,
           onSubmitAnimationCompleted: mockCallback.onSubmitAnimationCompleted,
         ));
@@ -565,7 +564,7 @@ void main() {
 
     // fail at validating - confirm password not match
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), user.name);
+    await tester.enterText(findNameTextField(), user.phoneNumber);
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), user.password);
     await tester.pumpAndSettle();
@@ -574,7 +573,7 @@ void main() {
     clickSubmitButton();
     await tester.pumpAndSettle();
 
-    verifyNever(mockCallback.emailValidator(invalidUser.name));
+    verifyNever(mockCallback.phoneValidator(invalidUser.phoneNumber));
     verifyNever(mockCallback.passwordValidator(invalidUser.password));
     verifyNever(mockCallback.onSignup(any));
     verifyNever(mockCallback.onSubmitAnimationCompleted());
@@ -593,7 +592,7 @@ void main() {
     await tester.pumpAndSettle();
 
     verifyInOrder([
-      mockCallback.emailValidator('invalid-name'),
+      mockCallback.phoneValidator('invalid-number!'),
       mockCallback.passwordValidator(user.password),
     ]);
     verifyNever(mockCallback.onSignup(any));
@@ -603,7 +602,7 @@ void main() {
 
     // fail at onSignup
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), invalidUser.name);
+    await tester.enterText(findNameTextField(), invalidUser.phoneNumber);
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), invalidUser.password);
     await tester.pumpAndSettle();
@@ -614,7 +613,7 @@ void main() {
     await tester.pumpAndSettle();
 
     verifyInOrder([
-      mockCallback.emailValidator(invalidUser.name),
+      mockCallback.phoneValidator(invalidUser.phoneNumber),
       mockCallback.passwordValidator(invalidUser.password),
       mockCallback.onSignup(any),
     ]);
@@ -624,7 +623,7 @@ void main() {
 
     // pass
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), user.name);
+    await tester.enterText(findNameTextField(), user.phoneNumber);
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), user.password);
     await tester.pumpAndSettle();
@@ -634,7 +633,7 @@ void main() {
     await tester.pumpAndSettle();
 
     verifyInOrder([
-      mockCallback.emailValidator(user.name),
+      mockCallback.phoneValidator(user.phoneNumber),
       mockCallback.passwordValidator(user.password),
       mockCallback.onSignup(any),
       mockCallback.onSubmitAnimationCompleted(),
@@ -654,7 +653,7 @@ void main() {
     expect(isSignup(tester), true);
 
     await simulateOpenSoftKeyboard(tester, defaultFlutterLogin());
-    await tester.enterText(findNameTextField(), 'near@gmail.com');
+    await tester.enterText(findNameTextField(), '9079239999');
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), '12345');
     await tester.pumpAndSettle();
@@ -664,12 +663,12 @@ void main() {
     clickForgotPasswordButton();
     await tester.pumpAndSettle();
 
-    expect(nameTextFieldWidget(tester).controller!.text, 'near@gmail.com');
+    expect(nameTextFieldWidget(tester).controller!.text, '9079239999');
 
     clickGoBackButton();
     await tester.pumpAndSettle();
 
-    expect(nameTextFieldWidget(tester).controller!.text, 'near@gmail.com');
+    expect(nameTextFieldWidget(tester).controller!.text, '9079239999');
     expect(passwordTextFieldWidget(tester).controller!.text, '12345');
     expect(confirmPasswordTextFieldWidget(tester).controller!.text, 'abcde');
   });
@@ -750,7 +749,7 @@ void main() {
   testWidgets(
       'Change flushbar title by setting flushbarTitleError & flushbarTitleSuccess.',
       (WidgetTester tester) async {
-    const users = ['near@gmail.com', 'hunter69@gmail.com'];
+    const users = ['9079239999', '9876543210'];
     final loginBuilder = () => widget(FlutterLogin(
           onSignup: (data) => null,
           onLogin: (data) =>
@@ -769,9 +768,9 @@ void main() {
 
     // Test error flushbar by entering unknown name
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), 'not.exists@gmail.com');
+    await tester.enterText(findNameTextField(), '8976543210');
     await tester.pumpAndSettle();
-    await tester.enterText(findPasswordTextField(), 'not.exists@gmail.com');
+    await tester.enterText(findPasswordTextField(), '8976543210');
     await tester.pumpAndSettle();
     clickSubmitButton();
 
@@ -789,7 +788,7 @@ void main() {
     await tester.pumpAndSettle();
 
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), 'near@gmail.com');
+    await tester.enterText(findNameTextField(), '9079239999');
     await tester.pumpAndSettle();
     clickSubmitButton();
 
@@ -819,7 +818,7 @@ void main() {
     expect(isSignup(tester), true);
 
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), 'near@gmail.com');
+    await tester.enterText(findNameTextField(), '9079239999');
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), '12345678');
     await tester.pumpAndSettle();

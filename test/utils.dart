@@ -5,15 +5,19 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_login/src/constants.dart';
 import 'package:flutter_login/src/widgets/animated_button.dart';
 
-// TODO: get this value from fluter_login package
 const loadingAnimationDuration = Duration(seconds: 1);
 
 class LoginCallback {
   Future<String>? onLogin(LoginData? data) => null;
+
   Future<String>? onSignup(LoginData? data) => null;
+
   Future<String>? onRecoverPassword(String? data) => null;
-  String? emailValidator(String? value) => null;
+
+  String? phoneValidator(String? value) => null;
+
   String? passwordValidator(String? value) => null;
+
   void onSubmitAnimationCompleted() {}
 }
 
@@ -24,11 +28,11 @@ final mockCallback = MockCallback();
 List<LoginData> stubCallback(MockCallback mockCallback) {
   reset(mockCallback);
 
-  final user = LoginData(name: 'near@gmail.com', password: '12345');
-  final invalidUser = LoginData(name: 'not.exists@gmail.com', password: '');
+  final user = LoginData(phoneNumber: '9079239999', password: '12345');
+  final invalidUser = LoginData(phoneNumber: '9079239999', password: '');
 
-  when(mockCallback.emailValidator(user.name)).thenReturn(null);
-  when(mockCallback.emailValidator('invalid-name')).thenReturn('Invalid!');
+  when(mockCallback.phoneValidator(user.phoneNumber)).thenReturn(null);
+  when(mockCallback.phoneValidator('invalid-name')).thenReturn('Invalid!');
 
   when(mockCallback.passwordValidator(user.password)).thenReturn(null);
   when(mockCallback.passwordValidator('invalid-name')).thenReturn('Invalid!');
@@ -151,8 +155,11 @@ Text recoverDescriptionTextWidget() {
 // tester.tap() not working for some reasons. Workaround:
 // https://github.com/flutter/flutter/issues/31066#issuecomment-530507319
 void clickSubmitButton() => submitButtonWidget().onPressed!();
+
 void clickForgotPasswordButton() => forgotPasswordButtonWidget().onPressed!();
+
 void clickGoBackButton() => goBackButtonWidget().onPressed!();
+
 void clickSwitchAuthButton() => switchAuthButtonWidget().onPressed!();
 
 /// this prevents this error:
