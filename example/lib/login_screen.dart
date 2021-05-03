@@ -2,10 +2,6 @@ import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'constants.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
-import 'package:flutter/material.dart';
-import 'package:flutter_login/flutter_login.dart';
-import 'constants.dart';
 import 'custom_route.dart';
 import 'dashboard_screen.dart';
 import 'users.dart';
@@ -139,8 +135,8 @@ class LoginScreen extends StatelessWidget {
       //   ),
       // ),
       phoneValidator: (value) {
-        if (value!.length!=10) {
-          return "PhoneNumber must contains 10 digits";
+        if (value!.length != 10) {
+          return 'PhoneNumber must contains 10 digits';
         }
         return null;
       },
@@ -152,7 +148,7 @@ class LoginScreen extends StatelessWidget {
       },
       onLogin: (loginData) {
         print('Login info');
-        print('Name: ${loginData.phoneNumber}'); 
+        print('Name: ${loginData.phoneNumber}');
         print('Password: ${loginData.password}');
         return _loginUser(loginData);
       },
