@@ -495,7 +495,7 @@ void main() {
     await tester.pumpAndSettle();
 
     verifyInOrder([
-      mockCallback.phoneValidator('invalid-number'),
+      mockCallback.phoneValidator('invalid-number!'),
       mockCallback.passwordValidator(user.password),
     ]);
     verifyNever(mockCallback.onLogin(any));
@@ -592,7 +592,7 @@ void main() {
     await tester.pumpAndSettle();
 
     verifyInOrder([
-      mockCallback.phoneValidator('invalid-number'),
+      mockCallback.phoneValidator('invalid-number!'),
       mockCallback.passwordValidator(user.password),
     ]);
     verifyNever(mockCallback.onSignup(any));
@@ -653,7 +653,7 @@ void main() {
     expect(isSignup(tester), true);
 
     await simulateOpenSoftKeyboard(tester, defaultFlutterLogin());
-    await tester.enterText(findNameTextField(), 'near@gmail.com');
+    await tester.enterText(findNameTextField(), '9079239999');
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), '12345');
     await tester.pumpAndSettle();
@@ -663,12 +663,12 @@ void main() {
     clickForgotPasswordButton();
     await tester.pumpAndSettle();
 
-    expect(nameTextFieldWidget(tester).controller!.text, 'near@gmail.com');
+    expect(nameTextFieldWidget(tester).controller!.text, '9079239999');
 
     clickGoBackButton();
     await tester.pumpAndSettle();
 
-    expect(nameTextFieldWidget(tester).controller!.text, 'near@gmail.com');
+    expect(nameTextFieldWidget(tester).controller!.text, '9079239999');
     expect(passwordTextFieldWidget(tester).controller!.text, '12345');
     expect(confirmPasswordTextFieldWidget(tester).controller!.text, 'abcde');
   });
@@ -749,7 +749,7 @@ void main() {
   testWidgets(
       'Change flushbar title by setting flushbarTitleError & flushbarTitleSuccess.',
       (WidgetTester tester) async {
-    const users = ['near@gmail.com', 'hunter69@gmail.com'];
+    const users = ['9079239999', '9876543210'];
     final loginBuilder = () => widget(FlutterLogin(
           onSignup: (data) => null,
           onLogin: (data) =>
@@ -768,9 +768,9 @@ void main() {
 
     // Test error flushbar by entering unknown name
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), 'not.exists@gmail.com');
+    await tester.enterText(findNameTextField(), '8976543210');
     await tester.pumpAndSettle();
-    await tester.enterText(findPasswordTextField(), 'not.exists@gmail.com');
+    await tester.enterText(findPasswordTextField(), '8976543210');
     await tester.pumpAndSettle();
     clickSubmitButton();
 
@@ -788,7 +788,7 @@ void main() {
     await tester.pumpAndSettle();
 
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), 'near@gmail.com');
+    await tester.enterText(findNameTextField(), '9079239999');
     await tester.pumpAndSettle();
     clickSubmitButton();
 
@@ -818,7 +818,7 @@ void main() {
     expect(isSignup(tester), true);
 
     await simulateOpenSoftKeyboard(tester, loginBuilder());
-    await tester.enterText(findNameTextField(), 'near@gmail.com');
+    await tester.enterText(findNameTextField(), '9079239999');
     await tester.pumpAndSettle();
     await tester.enterText(findPasswordTextField(), '12345678');
     await tester.pumpAndSettle();
