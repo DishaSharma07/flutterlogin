@@ -2,6 +2,10 @@ import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'constants.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter/material.dart';
+import 'package:flutter_login/flutter_login.dart';
+import 'constants.dart';
 import 'custom_route.dart';
 import 'dashboard_screen.dart';
 import 'users.dart';
@@ -13,10 +17,10 @@ class LoginScreen extends StatelessWidget {
 
   Future<String?> _loginUser(LoginData data) {
     return Future.delayed(loginTime).then((_) {
-      if (!mockUsers.containsKey(data.name)) {
+      if (!mockUsers.containsKey(data.phoneNumber)) {
         return 'Username not exists';
       }
-      if (mockUsers[data.name] != data.password) {
+      if (mockUsers[data.phoneNumber] != data.password) {
         return 'Password does not match';
       }
       return null;
@@ -134,9 +138,9 @@ class LoginScreen extends StatelessWidget {
       //     // shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(55.0)),
       //   ),
       // ),
-      emailValidator: (value) {
-        if (!value!.contains('@') || !value.endsWith('.com')) {
-          return "Email must contain '@' and end with '.com'";
+      phoneValidator: (value) {
+        if (value!.length!=10) {
+          return "PhoneNumber must contains 10 digits";
         }
         return null;
       },
@@ -148,13 +152,13 @@ class LoginScreen extends StatelessWidget {
       },
       onLogin: (loginData) {
         print('Login info');
-        print('Name: ${loginData.name}');
+        print('Name: ${loginData.phoneNumber}'); 
         print('Password: ${loginData.password}');
         return _loginUser(loginData);
       },
       onSignup: (loginData) {
         print('Signup info');
-        print('Name: ${loginData.name}');
+        print('Name: ${loginData.phoneNumber}');
         print('Password: ${loginData.password}');
         return _loginUser(loginData);
       },
