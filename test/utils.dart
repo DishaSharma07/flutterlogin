@@ -29,8 +29,7 @@ List<LoginData> stubCallback(MockCallback mockCallback) {
   reset(mockCallback);
 
   final user = LoginData(phoneNumber: '9079239999', password: '12345');
-  final invalidUser =
-      LoginData(phoneNumber: '9079239999', password: '');
+  final invalidUser = LoginData(phoneNumber: '9079239999', password: '');
 
   when(mockCallback.phoneValidator(user.phoneNumber)).thenReturn(null);
   when(mockCallback.phoneValidator('invalid-name')).thenReturn('Invalid!');

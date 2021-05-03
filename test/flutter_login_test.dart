@@ -19,7 +19,7 @@ void main() {
     binding.window.clearPhysicalSizeTestValue();
   }
 
-  testWidgets('Default phone validator throws error if not match email regex',
+  testWidgets('Default phone validator throws error if not match phone regex',
       (WidgetTester tester) async {
     await tester.pumpWidget(defaultFlutterLogin());
 
