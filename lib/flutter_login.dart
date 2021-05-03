@@ -156,11 +156,11 @@ class __HeaderState extends State<_Header> {
 
     var logo = displayLogo
         ? Image.asset(
-      widget.logoPath!,
-      filterQuality: FilterQuality.high,
-      height: logoHeight,
-      width: MediaQuery.of(context).size.width * 0.75,
-    )
+            widget.logoPath!,
+            filterQuality: FilterQuality.high,
+            height: logoHeight,
+            width: MediaQuery.of(context).size.width * 0.75,
+          )
         : NullWidget();
 
     if (widget.logoTag != null) {
@@ -221,24 +221,24 @@ class __HeaderState extends State<_Header> {
 class FlutterLogin extends StatefulWidget {
   FlutterLogin(
       {Key? key,
-        required this.onSignup,
-        required this.onLogin,
-        required this.onRecoverPassword,
-        this.title,
-        this.logo,
-        this.messages,
-        this.theme,
-        this.phoneValidator,
-        this.passwordValidator,
-        this.onSubmitAnimationCompleted,
-        this.logoTag,
-        this.titleTag,
-        this.showDebugButtons = false,
-        this.loginProviders = const <LoginProvider>[],
-        this.hideForgotPasswordButton = false,
-        this.hideSignUpButton = false,
-        this.loginAfterSignUp = true,
-        this.footer})
+      required this.onSignup,
+      required this.onLogin,
+      required this.onRecoverPassword,
+      this.title,
+      this.logo,
+      this.messages,
+      this.theme,
+      this.phoneValidator,
+      this.passwordValidator,
+      this.onSubmitAnimationCompleted,
+      this.logoTag,
+      this.titleTag,
+      this.showDebugButtons = false,
+      this.loginProviders = const <LoginProvider>[],
+      this.hideForgotPasswordButton = false,
+      this.hideSignUpButton = false,
+      this.loginAfterSignUp = true,
+      this.footer})
       : super(key: key);
 
   /// Called when the user hit the submit button when in sign up mode
@@ -342,15 +342,15 @@ class _FlutterLoginState extends State<FlutterLogin>
       vsync: this,
       duration: loadingDuration,
     )..addStatusListener((status) {
-      if (status == AnimationStatus.forward) {
-        _logoController!.forward();
-        _titleController!.forward();
-      }
-      if (status == AnimationStatus.reverse) {
-        _logoController!.reverse();
-        _titleController!.reverse();
-      }
-    });
+        if (status == AnimationStatus.forward) {
+          _logoController!.forward();
+          _titleController!.forward();
+        }
+        if (status == AnimationStatus.reverse) {
+          _logoController!.reverse();
+          _titleController!.reverse();
+        }
+      });
     _logoController = AnimationController(
       vsync: this,
       duration: loadingDuration,
@@ -473,13 +473,13 @@ class _FlutterLoginState extends State<FlutterLogin>
         Typography.blackMountainView.headline3!.color;
     final titleStyle = theme.textTheme.headline3!
         .copyWith(
-      color: loginTheme.accentColor ??
-          (isDefaultBlackText
-              ? Colors.white
-              : theme.textTheme.headline3!.color),
-      fontSize: loginTheme.beforeHeroFontSize,
-      fontWeight: FontWeight.w300,
-    )
+          color: loginTheme.accentColor ??
+              (isDefaultBlackText
+                  ? Colors.white
+                  : theme.textTheme.headline3!.color),
+          fontSize: loginTheme.beforeHeroFontSize,
+          fontWeight: FontWeight.w300,
+        )
         .merge(loginTheme.titleStyle);
     final textStyle = theme.textTheme.bodyText2!
         .copyWith(color: Colors.black54)
@@ -556,7 +556,7 @@ class _FlutterLoginState extends State<FlutterLogin>
       ),
       // put it here because floatingActionButtonTheme doesnt have highlightColor property
       highlightColor:
-      loginTheme.buttonTheme.highlightColor ?? theme.highlightColor,
+          loginTheme.buttonTheme.highlightColor ?? theme.highlightColor,
       textTheme: theme.textTheme.copyWith(
         headline3: titleStyle,
         bodyText2: textStyle,
@@ -637,7 +637,7 @@ class _FlutterLoginState extends State<FlutterLogin>
                         onSubmitCompleted: widget.onSubmitAnimationCompleted,
                         hideSignUpButton: widget.hideSignUpButton,
                         hideForgotPasswordButton:
-                        widget.hideForgotPasswordButton,
+                            widget.hideForgotPasswordButton,
                         loginAfterSignUp: widget.loginAfterSignUp,
                       ),
                     ),
